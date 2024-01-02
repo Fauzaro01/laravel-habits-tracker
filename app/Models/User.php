@@ -14,6 +14,9 @@ class User extends Authenticatable
 
 
     public $timestamps = false;
+    protected $primaryKey = "id";
+    protected $keyType = "string";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -44,4 +47,8 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function categories() {
+        return $this->hasMany(Category::class, 'user_id');
+    }
 }
