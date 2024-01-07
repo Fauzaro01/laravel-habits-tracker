@@ -26,8 +26,3 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('dashboard', 'dashboard')->name('dashboard');
     Route::post('logout', 'logout')->name('logout');
 });
-
-Route::prefix('categories')->controller(CategoriesController::class)->group(function () {
-    Route::get('/', 'index')->name('categories.index');
-    Route::post('store', 'store')->name('categories.store');
-});
