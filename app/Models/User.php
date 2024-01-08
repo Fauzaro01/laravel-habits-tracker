@@ -48,4 +48,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function lists() {
+        return $this->hasMany(Lists::class, 'user_id');
+    }
 }
