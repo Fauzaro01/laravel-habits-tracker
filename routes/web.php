@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ListController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +25,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('authenticate', 'authenticate')->name('authenticate');
     Route::get('dashboard', 'dashboard')->name('dashboard');
     Route::post('logout', 'logout')->name('logout');
+});
+
+Route::prefix('list')->controller(ListController::class)->group(function () {
+    Route::get('/id/{id}', 'index')->name('list.index');
+    Route::post('store', 'store')->name('list.store');
 });
