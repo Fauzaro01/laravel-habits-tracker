@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Lists;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -64,8 +63,7 @@ class AuthController extends Controller
 
     public function dashboard () {
         if(Auth::check()) {
-            $lists = Lists::findByUserId(auth()->user()->id);
-            return view('auth.dashboard', compact('lists'));
+            return view('auth.dashboard');
         }
 
         return redirect()->route('login')
