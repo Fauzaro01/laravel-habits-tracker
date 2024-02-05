@@ -27,7 +27,3 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout')->name('logout');
 });
 
-Route::prefix('list')->controller(ListController::class)->group(function () {
-    Route::get('/id/{id}', 'index')->name('list.index');
-    Route::post('store', 'store')->name('list.store');
-});

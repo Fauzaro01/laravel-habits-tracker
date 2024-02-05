@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->string('id', 5)->primary();
+        Schema::create('habits', function (Blueprint $table) {
+            $table->string('id',12)->primary();
+            $table->string('user_id',13);
             $table->string('name');
-            $table->enum('status', ['pending', 'complete'])->default('pending');
-            $table->string('list_id', 8);
-            $table->foreign('list_id')->references('id')->on('lists');
+            $table->text('description')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('habits');
     }
 };
