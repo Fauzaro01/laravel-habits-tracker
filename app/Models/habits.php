@@ -13,6 +13,6 @@ class habits extends Model
     protected $keyType = "string";
 
     protected $fillable = [
-        "id",  "user_id", "name", "description"
+        "id", "name", "description", "user_id"
     ];
 }

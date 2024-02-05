@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('habits', function (Blueprint $table) {
             $table->string('id',12)->primary();
-            $table->string('user_id',13);
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('user_id',13);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
