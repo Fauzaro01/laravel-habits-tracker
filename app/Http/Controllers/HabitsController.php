@@ -25,7 +25,7 @@ class HabitsController extends Controller
         habits::insert([
             'id' => Str::random(12),
             'name' => $request->name,
-            'decription' => $request->description|null,
+            'decription' => "Deskripsi belum selesai di atur",
             'user_id' => auth()->user()->id
         ]);
 

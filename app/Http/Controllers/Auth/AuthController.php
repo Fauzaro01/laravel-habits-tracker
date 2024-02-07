@@ -57,12 +57,12 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            "email" => "Username atau Password yang anda berikan tidak ada didalam sistem kami :("
+            "email" => "Akun anda tidak ada di sistem, tolong check lagi :("
         ])->onlyInput('email');
     }
 
     public function dashboard () {
-        if(Auth::check()) {
+        if(Auth::check()) { 
             return view('auth.dashboard');
         }
 
