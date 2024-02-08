@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('user_id',13);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['name', 'user_id']); // Fungsi : untuk setiap pengguna, namun satu pengguna diperbolehkan untuk memiliki beberapa kebiasaan dengan nama yang sama.
         });
     }
 

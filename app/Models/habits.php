@@ -15,4 +15,8 @@ class habits extends Model
     protected $fillable = [
         "id", "name", "description", "user_id"
     ];
+
+    public static function isDuplicate($name, $userId) {
+        return self::where('name', $name)->where('user_id', $userId)->exists();
+    }
 }

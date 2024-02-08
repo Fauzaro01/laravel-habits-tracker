@@ -24,11 +24,14 @@ Dashboard
                     You are logged in!
                 </div>
                 @endif
+                @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
 
                 <div class="col-md-3" id="hiddenform" style="display: none;">
-                    <form class="d-flex" action="" method="post">
+                    <form class="d-flex" action="{{route('habits.store')}}" method="post">
                         @csrf
-                        <input name="title" class="form-control" type="text" placeholder="Tambahkan Judul Lists">
+                        <input name="name" class="form-control" type="text" placeholder="Tambahkan Judul Lists">
                         <button type="submit" class="btn btn-dark"><i class="bi bi-check-circle"></i></button>
                     </form>
                 </div>
@@ -108,7 +111,7 @@ Dashboard
                                 }, 500); // Waktu yang sama dengan durasi animasi (0.5s)
                             }
                         });
-                        
+
                         setTimeout(() => {
                             divMsg.style.animation = 'fadeOut 0.5s forwards';
                             setTimeout(() => {

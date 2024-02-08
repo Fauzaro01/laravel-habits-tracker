@@ -13,22 +13,26 @@ class HabitsController extends Controller
     }
 
     public function index() {
-        return view('habit.index');
+        return view('habits.index');
     }
 
     public function store(Request $request) {
         $request->validate([
             'name' => 'required|max:250',
-            'description' => "max:500"
+            'description' => 'nullable|max:500'
         ]);
+
+        if(habits::isDuplicate($request->name, auth()->user()->id)) {
+            return redirect()->back()->withErrors(["name" => "Nama Habits sudah ada."])->withInput();
+        }
 
         habits::insert([
             'id' => Str::random(12),
             'name' => $request->name,
-            'decription' => "Deskripsi belum selesai di atur",
+            'description' => $request->description ?? "Deskripsi belum selesai diatur",
             'user_id' => auth()->user()->id
         ]);
 
-        return redirect('habits.index')->withSuccess('Berhasil menambahkan Habits baru!');
+        return redirect()->route('habits.index')->withSuccess('Berhasil menambahkan Habits baru!');
     }
 }
