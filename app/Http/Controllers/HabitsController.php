@@ -26,13 +26,13 @@ class HabitsController extends Controller
             return redirect()->back()->withErrors(["name" => "Nama Habits sudah ada."])->withInput();
         }
 
-        habits::insert([
+        habits::create([
             'id' => Str::random(12),
             'name' => $request->name,
             'description' => $request->description ?? "Deskripsi belum selesai diatur",
             'user_id' => auth()->user()->id
         ]);
 
-        return redirect()->route('habits.index')->withSuccess('Berhasil menambahkan Habits baru!');
+        return redirect()->back()->withSuccess('Berhasil menambahkan Habits baru!');
     }
 }
