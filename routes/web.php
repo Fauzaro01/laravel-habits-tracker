@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\HabitsController;
 use App\Http\Controllers\ListController;
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout')->name('logout');
 });
 
+Route::prefix("/habits")->controller(HabitsController::class)->group(function () {
+    Route::get('/', 'index')->name('habits.index');
+    Route::post('/store', 'store')->name('habits.store');
+
+});
