@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\habits;
 
 class AuthController extends Controller
 {
@@ -63,7 +64,8 @@ class AuthController extends Controller
 
     public function dashboard () {
         if(Auth::check()) { 
-            return view('auth.dashboard');
+            $habits = habits::getHabitsByUser(auth()->user()->id);
+            return view('auth.dashboard', compact('habits'));
         }
 
         return redirect()->route('login')

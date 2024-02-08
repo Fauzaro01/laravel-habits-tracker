@@ -35,7 +35,6 @@ Dashboard
                         <button type="submit" class="btn btn-dark"><i class="bi bi-check-circle"></i></button>
                     </form>
                 </div>
-
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
@@ -47,9 +46,10 @@ Dashboard
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($habits as $index => $habit)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
+                            <th scope="row">{{ $index + 1 }}</th>
+                            <td>{{$habit->name}}</td>
                             <td>11/100</td>
                             <td>Belum Selesai</td>
                             <td>
@@ -59,18 +59,7 @@ Dashboard
                                 <a class="btn btn-sm btn-danger" href="#">Hapus</a>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark Sukerber</td>
-                            <td>11/100</td>
-                            <td>Selesai</td>
-                            <td>
-                                <a class="btn btn-sm btn-secondary" href="#">Analisis</a>
-                                <a class="btn btn-sm btn-dark" href="#">Lihat</a>
-                                <a class="btn btn-sm btn-warning" href="#">Edit</a>
-                                <a class="btn btn-sm btn-danger" href="#">Hapus</a>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
 

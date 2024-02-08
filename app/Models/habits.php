@@ -11,12 +11,21 @@ class habits extends Model
     
     protected $primaryKey = "id";
     protected $keyType = "string";
+    public $timestamps = true;
+
+    protected $hidden = [
+        'user_id'
+    ];
 
     protected $fillable = [
         "id", "name", "description", "user_id"
     ];
 
-    public static function isDuplicate($name, $userId) {
+    public static function isDuplicate($name, $userId): bool {
         return self::where('name', $name)->where('user_id', $userId)->exists();
+    }
+
+    public static function getHabitsByUser($userId) {
+        return self::where('user_id', $userId)->get();
     }
 }
