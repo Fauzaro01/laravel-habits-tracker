@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('habits_logs', function (Blueprint $table) {
             $table->string('id', 12)->primary();
-            $table->date('date');
             $table->string('user_id', 13);
             $table->string('habit_id', 12);
+            $table->date('date');
+            $table->boolean('is_completed')->nullable();
             $table->foreign('habit_id')->references('id')->on('habits')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->boolean('is_completed')->nullable();
             $table->timestamps();
         });
     }
