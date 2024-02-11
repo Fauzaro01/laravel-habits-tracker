@@ -19,8 +19,12 @@ Dashboard
                 <div class="alert alert-success">
                     {{ $message }}
                 </div>
+                @elseif($message = Session::get('warn'))
+                <div id="temp_msg" duration="6000" class="alert alert-warning">
+                    {{ $message }}
+                </div>
                 @else
-                <div id="temp_msg" class="alert alert-success">
+                <div id="temp_msg" duration="3000" class="alert alert-success">
                     You are logged in!
                 </div>
                 @endif
@@ -40,7 +44,8 @@ Dashboard
                         <tr>
                             <th scope="col">NO</th>
                             <th scope="col">Nama</th>
-                            <th scope="col">Progress</th>
+                            <th scope="col">Progress Hari ini</th>
+                            <th scope="col">Total Progress</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -50,13 +55,18 @@ Dashboard
                         <tr>
                             <th scope="row">{{ $index + 1 }}</th>
                             <td>{{$habit->name}}</td>
-                            <td>11/100</td>
+                            <td>2/5</td>
+                            <td>45</td>
                             <td>Belum Selesai</td>
-                            <td>
-                                <a class="btn btn-sm btn-secondary" href="#">Analisis</a>
-                                <a class="btn btn-sm btn-dark" href="#">Lihat</a>
-                                <a class="btn btn-sm btn-warning" href="#">Edit</a>
-                                <a class="btn btn-sm btn-danger" href="#">Hapus</a>
+                            <td class="d-flex">
+                                <a class="btn btn-sm btn-secondary" href="#"><i class="bi bi-bar-chart-line"></i></a>
+                                <a class="btn btn-sm btn-dark" href="#"><i class="bi bi-eye"></i></a>
+                                <a class="btn btn-sm btn-warning" href="{{route('habits.updatepage', $habit->id)}}"><i class="bi bi-pencil-square"></i></a>
+                                <form action="{{route('habits.destroy', $habit->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -101,12 +111,13 @@ Dashboard
                             }
                         });
 
+                        var duration = divMsg.getAttribute('duration');
                         setTimeout(() => {
-                            divMsg.style.animation = 'fadeOut 0.5s forwards';
+                            divMsg.style.animation = `fadeOut 0.5s forwards`;
                             setTimeout(() => {
                                 divMsg.style.display = 'none';
                             }, 500)
-                        }, 3000);
+                        }, duration);
 
                     });
                 </script>

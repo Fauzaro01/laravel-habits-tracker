@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class habits extends Model
 {
     use HasFactory;
-    
+
     protected $primaryKey = "id";
     protected $keyType = "string";
     public $timestamps = true;
@@ -21,11 +21,20 @@ class habits extends Model
         "id", "name", "description", "user_id"
     ];
 
-    public static function isDuplicate($name, $userId): bool {
+    public static function isDuplicate($name, $userId): bool
+    {
         return self::where('name', $name)->where('user_id', $userId)->exists();
     }
 
-    public static function getHabitsByUser($userId) {
+    public static function getHabitsByUser($userId)
+    {
         return self::where('user_id', $userId)->get();
+    }
+
+    public static function findHabitsByUser($habitId, $userId): habits
+    {
+        return self::where('id', $habitId)
+            ->where('user_id', $userId)
+            ->first();
     }
 }

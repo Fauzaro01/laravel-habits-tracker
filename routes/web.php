@@ -28,8 +28,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout')->name('logout');
 });
 
-Route::prefix("/habits")->controller(HabitsController::class)->group(function () {
+Route::prefix('/habits')->controller(HabitsController::class)->group(function () {
     Route::get('/', 'index')->name('habits.index');
+    Route::get('/update/{id}', 'updatepage')->name('habits.updatepage');
     Route::post('/store', 'store')->name('habits.store');
-
+    Route::put('/{id}', 'update')->name('habits.update');
+    Route::delete('/{id}', 'destroy')->name('habits.destroy');
 });
