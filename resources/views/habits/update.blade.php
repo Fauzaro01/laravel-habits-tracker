@@ -10,13 +10,13 @@ Update Habits
         <div class="card">
             <div class="card-header">Update Kebiasaan ({{$habit->name}})</div>
             <div class="card-body">
-                <form action="{{ route('habits.update', $habit->id) }}" method="put">
+                <form action="{{ route('habits.update', $habit->id) }}" method="POST">
                     @csrf
-                    @method('put')
+                    @method('PUT')
                     <div class="mb-3 row">
                         <label for="title" class="col-md-4 col-form-label text-md-end text-start">Title</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ $habit->name }}">
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="name" value="{{ $habit->name }}">
                             @if ($errors->has('title'))
                             <span class="text-danger">{{ $errors->first('title') }}</span>
                             @endif
