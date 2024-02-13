@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('user_id', 13);
             $table->string('habit_id', 12);
             $table->date('date');
-            $table->boolean('is_completed')->nullable();
             $table->foreign('habit_id')->references('id')->on('habits')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
