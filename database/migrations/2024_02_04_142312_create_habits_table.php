@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('id',12)->primary();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->smallInteger('daily_count');
             $table->string('user_id',13);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -32,11 +32,16 @@ Dashboard
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
 
-                <div class="col-md-3" id="hiddenform" style="display: none;">
+                <div class="col-9" id="hiddenform" style="display: none;">
                     <form class="d-flex" action="{{route('habits.store')}}" method="post">
                         @csrf
-                        <input name="name" class="form-control" type="text" placeholder="Tambahkan Judul Lists">
-                        <button type="submit" class="btn btn-dark"><i class="bi bi-check-circle"></i></button>
+                        <div class="col-4 mx-1">
+                            <input name="name" class="form-control" type="text" placeholder="Tambahkan Judul Lists">
+                        </div>
+                        <div class="col-2 mx-2">
+                            <input name="daily_count" class="form-control" type="number" placeholder="Gols harian" min="1" max="15">
+                        </div>
+                        <button type="submit" class="btn btn-dark align-items-end"><i class="bi bi-check-circle"></i></button>
                     </form>
                 </div>
                 <table class="table table-hover table-striped">

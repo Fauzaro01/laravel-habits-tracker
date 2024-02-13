@@ -27,7 +27,8 @@ class HabitsController extends Controller
     {
         $request->validate([
             'name' => 'required|max:250',
-            'description' => 'nullable|max:500'
+            'description' => 'nullable|max:500',
+            'daily_count' => 'required|numeric|between:1,15'
         ]);
 
         if (habits::isDuplicate($request->name, auth()->user()->id)) {
@@ -38,6 +39,7 @@ class HabitsController extends Controller
             'id' => Str::random(12),
             'name' => $request->name,
             'description' => $request->description ?? "Deskripsi belum selesai diatur",
+            'daily_count' => $request->daily_count,
             'user_id' => auth()->user()->id
         ]);
 

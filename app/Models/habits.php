@@ -18,7 +18,7 @@ class habits extends Model
     ];
 
     protected $fillable = [
-        "id", "name", "description", "user_id"
+        "id", "name", "description", "daily_count", "user_id"
     ];
 
     public static function isDuplicate($name, $userId): bool
