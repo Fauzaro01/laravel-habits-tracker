@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\habits;
+use Carbon\Carbon;
 
 class HabitsController extends Controller
 {
@@ -13,9 +14,10 @@ class HabitsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index($id)
     {
-        return view('habits.index');
+        $habit = habits::with('logs')->findOrFail($id);
+        return view('habits.index', compact('habit'));
     }
 
     public function updatepage($id) {

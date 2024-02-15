@@ -21,6 +21,11 @@ class habits extends Model
         "id", "name", "description", "daily_count", "user_id"
     ];
 
+    public function logs()
+    {
+        return $this->hasMany(habits_logs::class, 'habit_id');
+    }
+
     public static function isDuplicate($name, $userId): bool
     {
         return self::where('name', $name)->where('user_id', $userId)->exists();
