@@ -81,4 +81,27 @@ class HabitsController extends Controller
         }
     }
 
+    public function checkin(Request $request) {
+        $request->validate([
+            'habit_id' => 'required|size:12',
+            'date' => 'nullable|date'
+        ]);
+
+        $habit = habits::findOrFail($request->habit_id);
+
+        if($habit) {
+            $habit->logs()->create([
+                "id" => Str::random(12),
+                "date" => $request->date ?? now('Asia/Jakarta'),
+                "user_id" => auth()->user()->id,
+                "habit_id" => $habit->id
+            ]);
+
+            return redirect()->route('habits.index', $habit->id);
+        } else {
+            return redirect()->back()->with('eror', "Sorry Habit not found");
+        }
+
+    }
+
 }

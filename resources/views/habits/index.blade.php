@@ -58,7 +58,7 @@ Analisis Habits
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{($habit->logs()->whereDate('date', '<=', now())->count() / $habit->daily_count)*100}}%</div>
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{($habit->logs()->whereDate('date', '<=', now('Asia/Jakarta'))->count() / $habit->daily_count)*100}}%</div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
@@ -122,10 +122,10 @@ Analisis Habits
                                 <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
                                     Controls Habit</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <form action="" method="post">
-                                    <input type="hidden" name="habit_id" value="{{$habit->id}}">
-                                    @csrf
-                                    <button class="btn btn-warning" type="submit">[<i class="bi bi-send-plus"></i>] Absen</button>
+                                    <form action="{{route('habits.checkin', $habit->id)}}" method="post">
+                                        <input type="hidden" name="habit_id" value="{{$habit->id}}">
+                                        @csrf
+                                        <button class="btn btn-secondary" type="submit">[<i class="bi bi-send-plus"></i>] Absen</button>
                                     </form>
                                 </div>
                             </div>
@@ -140,6 +140,8 @@ Analisis Habits
         </div>
     </div>
 </div>
+
+{{($habit->logs()->whereDate('date', '<=', now('Asia/Jakarta').toStringDate()))}}
 
 
 <script>

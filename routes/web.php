@@ -30,6 +30,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::prefix('/habits')->controller(HabitsController::class)->group(function () {
     Route::get('/{id}', 'index')->name('habits.index');
+    Route::post('/checkin', 'checkin')->name('habits.checkin');
     Route::post('/store', 'store')->name('habits.store');
     Route::get('/update/{id}', 'updatepage')->name('habits.updatepage');
     Route::put('/{id}', 'update')->name('habits.update');
