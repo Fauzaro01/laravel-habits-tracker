@@ -6,10 +6,18 @@ Analisis Habits
 @section('content')
 
 <div class="card mt-3">
-    <div class="card-header">
-        <h4>{{$habit->name}}</h4>
-    </div>
     <div class="card-body">
+
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+        @elseif($message = Session::get('warn'))
+        <div id="temp_msg" duration="6000" class="alert alert-warning">
+            {{ $message }}
+        </div>
+        @endif
+
         <div class="row">
 
             <div class="col-xl-3 col-md-6 mb-4">
@@ -58,11 +66,11 @@ Analisis Habits
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{($habit->logs()->whereDate('date', '<=', now('Asia/Jakarta'))->count() / $habit->daily_count)*100}}%</div>
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{($habit->logs()->whereDate('date', now('Asia/Jakarta'))->count() / $habit->daily_count)*100}}%</div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div id="progressBar" class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="{{($habit->logs()->whereDate('date', '<=', now())->count() / $habit->daily_count)*100}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div id="progressBar" class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="{{($habit->logs()->whereDate('date', now())->count() / $habit->daily_count)*100}}" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +133,7 @@ Analisis Habits
                                     <form action="{{route('habits.checkin', $habit->id)}}" method="post">
                                         <input type="hidden" name="habit_id" value="{{$habit->id}}">
                                         @csrf
-                                        <button class="btn btn-secondary" type="submit">[<i class="bi bi-send-plus"></i>] Absen</button>
+                                        <button id="interaksi-btn" class="btn btn-secondary" type="submit">[<i class="bi bi-send-plus"></i>] Absen</button>
                                     </form>
                                 </div>
                             </div>
@@ -141,7 +149,7 @@ Analisis Habits
     </div>
 </div>
 
-{{($habit->logs()->whereDate('date', '<=', now('Asia/Jakarta').toStringDate()))}}
+{{$habit}}
 
 
 <script>
@@ -159,6 +167,22 @@ Analisis Habits
             progressBar.style.width = width + '%'
         }
     }
+
+    var pressTimer;
+
+    // Mengaktifkan timer ketika tombol ditekan
+    document.getElementById("interaksi-btn").addEventListener("mousedown", function(e) {
+        // Membuat timer yang akan memanggil fungsi setelah 7 detik
+        pressTimer = window.setTimeout(function() {
+            console.log("misteri button");
+            e.preventDefault();
+        }, 1000); // 7000 milidetik = 7 detik
+    });
+
+    // Menghapus timer ketika tombol dilepas sebelum 7 detik
+    document.getElementById("interaksi-btn").addEventListener("mouseup", function() {
+        clearTimeout(pressTimer);
+    });
 </script>
 
 @endsection

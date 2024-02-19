@@ -50,7 +50,7 @@ Dashboard
                             <th scope="col">NO</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Progress Hari ini</th>
-                            <th scope="col">Total Progress</th>
+                            <th scope="col">Target Harian</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -60,9 +60,11 @@ Dashboard
                         <tr>
                             <th scope="row">{{ $index + 1 }}</th>
                             <td>{{$habit->name}}</td>
-                            <td>2/5</td>
-                            <td>45</td>
-                            <td>Belum Selesai</td>
+                            <td>{{$habit->logs()->whereDate('date', "=",  now('Asia/Jakarta'))->count()}}</td>
+                            <td>{{$habit->daily_count}}</td>
+                            <td>
+                            {{ ($habit->logs()->whereDate('date', "=",  now('Asia/Jakarta'))->count() >= $habit->daily_count ) ? "Selesai" : "Belum selesai" }}
+                            </td>
                             <td class="d-flex">
                                 <a class="btn btn-sm btn-secondary" href="#"><i class="bi bi-bar-chart-line"></i></a>
                                 <a class="btn btn-sm btn-dark" href="{{route('habits.index', $habit->id)}}"><i class="bi bi-eye"></i></a>

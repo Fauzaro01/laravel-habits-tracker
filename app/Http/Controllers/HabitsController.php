@@ -20,7 +20,8 @@ class HabitsController extends Controller
         return view('habits.index', compact('habit'));
     }
 
-    public function updatepage($id) {
+    public function updatepage($id)
+    {
         $habit = habits::findHabitsByUser($id, auth()->user()->id);
         return view('habits.update', compact('habit'));
     }
@@ -57,12 +58,12 @@ class HabitsController extends Controller
 
         $habit = habits::findHabitsByUser($id, auth()->user()->id);
 
-        if($habit) {
+        if ($habit) {
             $habit->update([
                 'name' => $request->name,
                 'description' => $request->description,
             ]);
-    
+
             return redirect()->route('dashboard')->withSuccess("Habits anda telah di Perbarui.");
         } else {
             return redirect()->route('dashboard')->with('warn', "Habits anda tidak valid");
@@ -81,7 +82,8 @@ class HabitsController extends Controller
         }
     }
 
-    public function checkin(Request $request) {
+    public function checkin(Request $request)
+    {
         $request->validate([
             'habit_id' => 'required|size:12',
             'date' => 'nullable|date'
@@ -89,19 +91,21 @@ class HabitsController extends Controller
 
         $habit = habits::findOrFail($request->habit_id);
 
-        if($habit) {
-            $habit->logs()->create([
-                "id" => Str::random(12),
-                "date" => $request->date ?? now('Asia/Jakarta'),
-                "user_id" => auth()->user()->id,
-                "habit_id" => $habit->id
-            ]);
-
-            return redirect()->route('habits.index', $habit->id);
+        if ($habit) {
+            if ($habit->logs()->whereDate('date', '=', now()->toDateString())->count() >= $habit->daily_count) {
+                return redirect()->route('habits.index', $habit->id)->with('warn', "Anda tidak bisa merekam kegiatan melebihi jadwal yang di berikan sebelumnya.");
+            } else {
+                $habit->logs()->create([
+                    "id" => Str::random(12),
+                    "date" => $request->date ?? now('Asia/Jakarta'),
+                    "user_id" => auth()->user()->id,
+                    "habit_id" => $habit->id
+                ]);
+                return redirect()->route('habits.index', $habit->id);
+            }
         } else {
             return redirect()->back()->with('eror', "Sorry Habit not found");
         }
-
     }
 
 }
