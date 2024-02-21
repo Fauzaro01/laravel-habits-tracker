@@ -42,4 +42,21 @@ class habits extends Model
             ->where('user_id', $userId)
             ->first();
     }
+
+    public static function countLogsByDate($id) {
+        $habit = self::with('logs')->find($id);
+        $hitunganLogs = [];
+
+        foreach ($habit->logs as $log) {
+            $tanggal = $log->date;
+
+            if(!isset($hitunganLogs[$tanggal])) {
+                $hitunganLogs[$tanggal] = 1;
+            } else {
+                $hitunganLogs[$tanggal]++;
+            }
+        }
+
+        return $hitunganLogs;
+    }
 }
