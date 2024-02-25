@@ -59,4 +59,16 @@ class habits extends Model
 
         return $hitunganLogs;
     }
+
+    public static function recordHabit($id) {
+        $habit = self::findOrFail($id);
+        $habitLogs = self::countLogsByDate($id);
+        $berhasil = 0;
+        $gagal = 0;
+        foreach($habitLogs as $key => $value) {
+            ($value >= $habit->daily_count) ? $berhasil++ : $gagal++;
+        }
+
+        return ["berhasil" => $berhasil, "gagal" => $gagal];
+    }
 }
