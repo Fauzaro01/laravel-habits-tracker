@@ -27,7 +27,7 @@ Analisis Habits
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Total Goals Tercapai</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$habit->logs->count()}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$record['berhasil']}}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="bi bi-activity text-gray-300"></i>
@@ -90,8 +90,8 @@ Analisis Habits
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Pending Requests</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    Total Tidak Tercapai</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$record['gagal']}}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>

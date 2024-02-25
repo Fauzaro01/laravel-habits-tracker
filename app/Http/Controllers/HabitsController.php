@@ -16,8 +16,9 @@ class HabitsController extends Controller
 
     public function index($id)
     {
+        $record = habits::recordHabit($id);
         $habit = habits::with('logs')->findOrFail($id);
-        return view('habits.index', compact('habit'));
+        return view('habits.index', compact('habit', 'record'));
     }
 
     public function updatepage($id)
