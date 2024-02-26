@@ -109,4 +109,8 @@ class HabitsController extends Controller
         }
     }
 
+    public function analisis ($id) {
+        $counterlogs = habits::countLogsByDate($id);
+        return view('habits.analisis', compact('counterlogs'));
+    }
 }
