@@ -134,6 +134,7 @@ Analisis Habits
                                         <input type="hidden" name="habit_id" value="{{$habit->id}}">
                                         @csrf
                                         <button id="interaksi-btn" class="btn btn-secondary" type="submit">[<i class="bi bi-send-plus"></i>] Absen</button>
+                                        <a class="btn btn-secondary" href="{{route('habits.analisis', $habit->id)}}">[<i class="bi bi-bar-chart-line"></i>] Analisis</a>
                                     </form>
                                 </div>
                             </div>
@@ -148,8 +149,6 @@ Analisis Habits
         </div>
     </div>
 </div>
-
-{{$habit}}
 
 
 <script>
