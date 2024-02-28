@@ -66,7 +66,7 @@ Dashboard
                             {{ ($habit->logs()->whereDate('date', "=",  now('Asia/Jakarta'))->count() >= $habit->daily_count ) ? "Selesai" : "Belum selesai" }}
                             </td>
                             <td class="d-flex">
-                                <a class="btn btn-sm btn-secondary" href="#"><i class="bi bi-bar-chart-line"></i></a>
+                                <a class="btn btn-sm btn-secondary" href="{{route('habits.analisis', $habit->id)}}"><i class="bi bi-bar-chart-line"></i></a>
                                 <a class="btn btn-sm btn-dark" href="{{route('habits.index', $habit->id)}}"><i class="bi bi-eye"></i></a>
                                 <a class="btn btn-sm btn-warning" href="{{route('habits.updatepage', $habit->id)}}"><i class="bi bi-pencil-square"></i></a>
                                 <form action="{{route('habits.destroy', $habit->id)}}" method="POST">
